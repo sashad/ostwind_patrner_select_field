@@ -18,6 +18,10 @@ export class SendMailButton extends Component {
     }
 
     async onClick() {
+        const res_ids = [];
+        if (this.props.record.data[this.props.name].length) {
+            res_ids.push(this.props.record.data[this.props.name][0]);
+        }
         this.action.doAction(
             {
                 type: "ir.actions.act_window",
@@ -28,8 +32,8 @@ export class SendMailButton extends Component {
                 context: {
                     ...this.user.context,
                     default_res_model: RES_MODEL,
-                    default_res_ids: [this.props.record.data[this.props.name][0],],
-                    default_partner_ids: [this.props.record.data[this.props.name][0],],
+                    default_res_ids: res_ids,
+                    default_partner_ids: res_ids,
                     default_composition_mode: "comment",
                 },
             },

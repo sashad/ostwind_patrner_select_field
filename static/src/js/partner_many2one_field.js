@@ -17,6 +17,10 @@ class PartnerSendSMSButton extends SendSMSButton {
     }
 
     async onClick() {
+        let res_id = null;
+        if (this.props.record.data[this.props.name].length) {
+            res_id = this.props.record.data[this.props.name][0];
+        }
         this.action.doAction(
             {
                 type: "ir.actions.act_window",
@@ -28,7 +32,7 @@ class PartnerSendSMSButton extends SendSMSButton {
                     ...this.user.context,
                     default_res_model: RES_MODEL,
                     default_number_field_name: NUMBER_FIELD_NAME,
-                    default_res_id: this.props.record.data[this.props.name][0],
+                    default_res_id: res_id,
                     default_composition_mode: "comment",
                 },
             },
@@ -70,7 +74,6 @@ class PartnerMany2OneField extends Many2OneField {
 
     async fetchPartner() {
         const partnerId = this.props.record.data[this.props.name][0];
-        console.log('partnerId:', partnerId, this.props);
         if (this.isPartnerModel && partnerId) {
             const partnerData = await this.orm.read(
                 RES_MODEL,
@@ -81,7 +84,6 @@ class PartnerMany2OneField extends Many2OneField {
                 this.partner.phone = partnerData[0].phone;
                 this.partner.email = partnerData[0].email;
             }
-            console.log('fetch a partner:', partnerData, this.partner);
         }
     }
 }
