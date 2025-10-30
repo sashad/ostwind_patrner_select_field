@@ -78,10 +78,10 @@ class PartnerMany2OneField extends Many2OneField {
             const partnerData = await this.orm.read(
                 RES_MODEL,
                 [partnerId],
-                ["email", "phone"]
+                ["email", "phone", "mobile"]
             );
             if (partnerData.length) {
-                this.partner.phone = partnerData[0].phone;
+                this.partner.phone = partnerData[0].mobile || partnerData[0].phone;
                 this.partner.email = partnerData[0].email;
             }
         }

@@ -2,16 +2,15 @@
 <templates xml:space="preserve">
     <t t-name="ostwind_personal_pbx.PartnerMany2OneField" t-inherit="web.Many2OneField" t-inherit-mode="primary">
         <xpath expr="//div[hasclass('o_field_many2one_selection')]" position="inside">
-            <t t-if="isPartnerModel">
+            <t t-if="isPartnerModel && partner.phone">
                 <a class="o_phone_form_link d-inline-flex align-items-center" t-att-href="'tel:' + partner.phone">
                     <i class="fa fa-phone"></i>
                     <small class="fw-bold ms-1">Call</small>
                 </a>
                 <PartnerSendSMSButton t-props="props" />
+            </t>
+            <t t-if="isPartnerModel && partner.email">
                 <SendMailButton t-props="props" />
-                <!-- <a class="ms-3 d-inline-flex align-items-center" target="_blank" t-att-href="'mailto:' + partner.email"> -->
-                <!--     <i class="fa fa-envelope" data-tooltip="Send Email" aria-label="Send Email" title=""></i> -->
-                <!-- </a> -->
             </t>
         </xpath>
 
