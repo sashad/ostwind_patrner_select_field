@@ -67,6 +67,14 @@ class PartnerMany2OneField extends Many2OneField {
         return this.relation === "res.partner";
     }
 
+    get hasPhone() {
+        return !!this.partner.phone;
+    }
+
+    get hasEmail() {
+        return !!this.partner.email;
+    }
+
     async updateRecord(value) {
         await this.fetchPartner();
         return super.updateRecord(value);
